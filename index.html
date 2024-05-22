@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="formulario">
+      <fieldset>
+        <legend>Trabalhe conosco</legend>
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" /><br />
+        <p>Vagas disponíveis</p>
+        <label
+          ><input type="radio" name="vaga" value="Dev Front-end JR" /> Dev
+          Front-end JR</label
+        >
+        <label
+          ><input type="radio" name="vaga" value="Designer UI/UX" /> Designer
+          UI/UX</label
+        >
+        <p>Habilidades</p>
+        <label
+          ><input type="checkbox" name="habilidades" value="HTML5" />
+          HTML5</label
+        >
+        <label
+          ><input type="checkbox" name="habilidades" value="Javascript" />
+          Javascript</label
+        >
+        <label
+          ><input type="checkbox" name="habilidades" value="Figma" />
+          Figma</label
+        >
+      </fieldset>
+      <button type="submit" id="enviar">Enviar</button>
+    </form>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBNOiZ9gM_k9Yil6j4NdVi1SMSWD4uy0zU",
+
+        authDomain: "kllll-b6b51.firebaseapp.com",
+
+        databaseURL: "https://kllll-b6b51-default-rtdb.firebaseio.com",
+
+        projectId: "kllll-b6b51",
+
+        storageBucket: "kllll-b6b51.appspot.com",
+
+        messagingSenderId: "81707986285",
+
+        appId: "1:81707986285:web:2fa04745cdfab98b6e7e64",
+
+        measurementId: "G-J23020B4M0",
+      };
+
+      // Initialize Firebase
+
+      const app = initializeApp(firebaseConfig);
+
+      const analytics = getAnalytics(app);
+
+      // const database = Database();
+
+      let form = document.getElementById("formulario");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nome = form["nome"].value;
+        const vaga = form.querySelector('input[name="vaga"]:checked').value;
+        const habilidades = Array.from(
+          form.querySelectorAll('input[name="habilidades"]:checked')
+        ).map(function (checkbox) {
+          return checkbox.value;
+        });
+
+        alert(
+          `Nome: ${nome}\nVaga: ${vaga}\nHabilidades: ${habilidades.join(", ")}`
+        );
+
+        const usersRef = (database, "users");
+        push(usersRef, {
+          nome: nome,
+          vaga: radio,
+          habilidades: checkbox,
+        })
+          .then(() => {
+            console.log(`Dados enviados com sucesso!`);
+          })
+          .catch((error) => {
+            console.error(`Erro ao enviar dados:`, error);
+          });
+      });
+    </script>
+  </body>
+</html>
