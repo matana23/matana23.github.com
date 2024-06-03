@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário</title>
+    <title>Forms</title>
   </head>
   <body>
     <form id="formulario">
@@ -20,6 +20,12 @@
           ><input type="radio" name="vaga" value="Designer UI/UX" /> Designer
           UI/UX</label
         >
+        <br />
+        <label for="id_data"
+          >Data de nascimento:
+          <input type="date" name="data" id="id_data" />
+        </label>
+
         <p>Habilidades</p>
         <label
           ><input type="checkbox" name="habilidades" value="HTML5" />
@@ -82,23 +88,34 @@
       form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const nome = form["nome"].value;
-        const vaga = form.querySelector('input[name="vaga"]:checked').value;
-        const habilidades = Array.from(
-          form.querySelectorAll('input[name="habilidades"]:checked')
-        ).map(function (checkbox) {
-          return checkbox.value;
-        });
+        let vetor = [];
 
-        alert(
-          `Nome: ${nome}\nVaga: ${vaga}\nHabilidades: ${habilidades.join(", ")}`
-        );
+        let temp = document.querySelectorAll(`[name=habilidades]:checked`);
+        temp.forEach((valor, index) => {
+          vetor[index] = valor.value;
+          console.log(index, valor.value);
+        });
+        // const nome = form["nome"].value;
+        // const vaga = form.querySelector('input[name="vaga"]:checked').value;
+        // const habilidades = Array.from(
+        //   form.querySelectorAll('input[name="habilidades"]:checked')
+        // ).map(function (checkbox) {
+        //   return checkbox.value;
+        // });
+
+        alert(`
+      Nome: ${form.nome.value}
+      Vaga: ${form.vaga.value}
+      Habilidades: ${vetor}
+      Data de nascimento: ${form.data.value}
+
+      `);
 
         const usersRef = (database, "users");
         push(usersRef, {
-          nome: nome,
-          vaga: radio,
-          habilidades: checkbox,
+          nome: form.nome.value,
+          vaga: form.radio.value,
+          habilidades: form.checkbox.value,
         })
           .then(() => {
             console.log(`Dados enviados com sucesso!`);
